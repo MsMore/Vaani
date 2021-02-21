@@ -1,6 +1,7 @@
 import xml.etree.ElementTree as ET
 import os
-#letter = 
+
+
 def num(filename):
     return filename.split(".")[1]
 
@@ -10,17 +11,19 @@ with open('D:/Pose Detection/HandPose/Images/skeletons/train/N.xml', 'r') as f:
 FOLDER = 'D:/Pose Detection/HandPose/Images/skeletons/train/N'
 
 for filename in os.listdir(FOLDER):
-    
+    letter = filename[0]    
     number = num (filename)
-    with open('D:/Pose Detection/HandPose/Images/Annotations/N/N.{}.xml'.format(number), 'w') as fp:
+    with open('D:/Pose Detection/HandPose/Images/Annotations/{}/{}.{}.xml'.format(letter,letter,number), 'w') as fp:
         fp.write(data)
-    tree = ET.parse('D:/Pose Detection/HandPose/Images/Annotations/N/N.'+ str(number) +'.xml')
+    tree = ET.parse('D:/Pose Detection/HandPose/Images/Annotations/{}/{}.'.format(letter,letter)+ str(number) +'.xml')
     root = tree.getroot()
 
     BBB = root.find('filename')
     BBB.text = 'N.'+str(number) +'.jpg'
 
     AAA = root.find('path')
-    AAA.text = 'D:\Pose Detection\HandPose\Images\skeletons\train\N\N.' +str(number)+ '.jpg'
+    pat = str(r'D:\Pose Detection\HandPose\Images\skeletons\train\{}\{}.'.format(letter,letter) +str(number)+ '.jpg')
+    AAA.text = pat
 
-    tree.write('D:/Pose Detection/HandPose/Images/Annotations/N/N.'+ str(number) +'.xml')
+    tree.write('D:/Pose Detection/HandPose/Images/Annotations/{}/{}.'.format(letter,letter)+ str(number) +'.xml')
+
