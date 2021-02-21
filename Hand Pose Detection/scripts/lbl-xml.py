@@ -5,10 +5,10 @@ import os
 def num(filename):
     return filename.split(".")[1]
 
-with open('D:/Pose Detection/HandPose/Images/skeletons/train/N.xml', 'r') as f: 
+with open('D:/Pose Detection/HandPose/Images/skeletons/train/Q.xml', 'r') as f: 
     data = f.read()
 
-FOLDER = 'D:/Pose Detection/HandPose/Images/skeletons/train/N'
+FOLDER = 'D:/Pose Detection/HandPose/Images/skeletons/train/Q'
 
 for filename in os.listdir(FOLDER):
     letter = filename[0]    
@@ -18,12 +18,16 @@ for filename in os.listdir(FOLDER):
     tree = ET.parse('D:/Pose Detection/HandPose/Images/Annotations/{}/{}.'.format(letter,letter)+ str(number) +'.xml')
     root = tree.getroot()
 
+    GGG = root.find('folder')
+    GGG.text = letter
     BBB = root.find('filename')
-    BBB.text = 'N.'+str(number) +'.jpg'
+    BBB.text = '{}.'.format(letter)+str(number) +'.jpg'
 
     AAA = root.find('path')
     pat = str(r'D:\Pose Detection\HandPose\Images\skeletons\train\{}\{}.'.format(letter,letter) +str(number)+ '.jpg')
     AAA.text = pat
-
+    CCC = root.find('object')
+    FFF = CCC.find('name')
+    FFF.text = letter
     tree.write('D:/Pose Detection/HandPose/Images/Annotations/{}/{}.'.format(letter,letter)+ str(number) +'.xml')
 
