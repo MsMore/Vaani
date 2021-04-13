@@ -1,2 +1,3 @@
 # Vaani
-Project on sign language detection
+Sign language detection using Machine Learning on React Native
+
