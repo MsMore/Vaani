@@ -1,0 +1,85 @@
+import * as React from 'react';
+import { StyleSheet, View } from 'react-native';
+import Checkbox from './Checkbox';
+import CheckboxAndroid from './CheckboxAndroid';
+import CheckboxIOS from './CheckboxIOS';
+import Text from '../Typography/Text';
+import TouchableRipple from '../TouchableRipple/TouchableRipple';
+import { withTheme } from '../../core/theming';
+
+/**
+ * Checkbox.Item allows you to press the whole row (item) instead of only the Checkbox.
+ *
+ * ## Usage
+ * ```js
+ * import * as React from 'react';
+ * import { View } from 'react-native';
+ * import { Checkbox } from 'react-native-paper';
+ *
+ * const MyComponent = () => (
+ *   <View>
+ *     <Checkbox.Item label="Item" status="checked" />
+ *   </View>
+ * );
+ *
+ * export default MyComponent;
+ *```
+ */
+const CheckboxItem = ({
+  style,
+  status,
+  label,
+  onPress,
+  labelStyle,
+  theme,
+  testID,
+  mode,
+  ...props
+}) => {
+  const checkboxProps = { ...props,
+    status,
+    theme
+  };
+  let checkbox;
+
+  if (mode === 'android') {
+    checkbox = /*#__PURE__*/React.createElement(CheckboxAndroid, checkboxProps);
+  } else if (mode === 'ios') {
+    checkbox = /*#__PURE__*/React.createElement(CheckboxIOS, checkboxProps);
+  } else {
+    checkbox = /*#__PURE__*/React.createElement(Checkbox, checkboxProps);
+  }
+
+  return /*#__PURE__*/React.createElement(TouchableRipple, {
+    onPress: onPress,
+    testID: testID
+  }, /*#__PURE__*/React.createElement(View, {
+    style: [styles.container, style],
+    pointerEvents: "none"
+  }, /*#__PURE__*/React.createElement(Text, {
+    style: [styles.label, {
+      color: theme.colors.text
+    }, labelStyle]
+  }, label), checkbox));
+};
+
+CheckboxItem.displayName = 'Checkbox.Item';
+export default withTheme(CheckboxItem); // @component-docs ignore-next-line
+
+const CheckboxItemWithTheme = withTheme(CheckboxItem); // @component-docs ignore-next-line
+
+export { CheckboxItemWithTheme as CheckboxItem };
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 8,
+    paddingHorizontal: 16
+  },
+  label: {
+    fontSize: 16,
+    flex: 1
+  }
+});
+//# sourceMappingURL=CheckboxItem.js.map
