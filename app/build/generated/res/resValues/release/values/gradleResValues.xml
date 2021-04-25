@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Automatically generated file. DO NOT MODIFY -->
+
+    <!-- Values from default config. -->
+    <string name="appName" translatable="false">Vaani</string>
+    <string name="assetStatements" translatable="false">[{ \"relation\": [\"delegate_permission/common.handle_all_urls\"],\"target\": {\"namespace\": \"web\", \"site\": \"https://vaanisignlanguage.herokuapp.com\"}}]</string>
+
+    <color name="backgroundColor">#FCECDD</color>
+    <color name="colorPrimary">#FEA82F</color>
+
+    <bool name="enableNotification">false</bool>
+
+    <string name="fallbackType" translatable="false">customtabs</string>
+    <string name="generatorApp" translatable="false">NEW APP</string>
+    <string name="hostName" translatable="false">vaanisignlanguage.herokuapp.com</string>
+    <string name="launchUrl" translatable="false">https://vaanisignlanguage.herokuapp.com/</string>
+    <string name="launcherName" translatable="false">Vaani</string>
+
+    <color name="navigationColor">#000000</color>
+
+    <string name="providerAuthority" translatable="false">xyz.appmaker.zbnkcm.fileprovider</string>
+
+    <integer name="splashScreenFadeOutDuration">300</integer>
+
+    <string name="webManifestUrl" translatable="false">https://vaanisignlanguage.herokuapp.com/manifest.json</string>
+
+</resources>

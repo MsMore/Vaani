@@ -1,0 +1,26 @@
+{
+  "packageId": "xyz.appmaker.zbnkcm",
+  "host": "vaanisignlanguage.herokuapp.com",
+  "name": "Vaani",
+  "launcherName": "Vaani",
+  "display": "standalone",
+  "themeColor": "#FEA82F",
+  "navigationColor": "#000000",
+  "backgroundColor": "#FCECDD",
+  "enableNotifications": false,
+  "startUrl": "/",
+  "iconUrl": "https://storage.googleapis.com/pwa2apk/2DtqLRcWvK7cLrUJGwLN/files/icon.PNG",
+  "maskableIconUrl": "https://storage.googleapis.com/pwa2apk/2DtqLRcWvK7cLrUJGwLN/files/icon.PNG",
+  "splashScreenFadeOutDuration": 300,
+  "signingKey": {
+    "path": "./android.keystore",
+    "alias": "android"
+  },
+  "appVersionName": "1",
+  "appVersionCode": 1,
+  "shortcuts": [],
+  "generatorApp": "NEW APP",
+  "webManifestUrl": "https://vaanisignlanguage.herokuapp.com/manifest.json",
+  "fallbackType": "customtabs",
+  "appVersion": "1"
+}
