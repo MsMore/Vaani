@@ -1,5 +1,5 @@
 {
-  "packageId": "xyz.appmaker.zbnkcm",
+  "packageId": "xyz.appmaker.xnnleb",
   "host": "vaanisignlanguage.herokuapp.com",
   "name": "Vaani",
   "launcherName": "Vaani",
@@ -9,8 +9,8 @@
   "backgroundColor": "#FCECDD",
   "enableNotifications": false,
   "startUrl": "/",
-  "iconUrl": "https://storage.googleapis.com/pwa2apk/2DtqLRcWvK7cLrUJGwLN/files/icon.PNG",
-  "maskableIconUrl": "https://storage.googleapis.com/pwa2apk/2DtqLRcWvK7cLrUJGwLN/files/icon.PNG",
+  "iconUrl": "https://storage.googleapis.com/pwa2apk/uDzPGBX4bQknoalDxXGX/files/icon.PNG",
+  "maskableIconUrl": "https://storage.googleapis.com/pwa2apk/uDzPGBX4bQknoalDxXGX/files/icon.PNG",
   "splashScreenFadeOutDuration": 300,
   "signingKey": {
     "path": "./android.keystore",

@@ -13,72 +13,48 @@
         <link rel="apple-touch-icon" href="images/logo.PNG">
         
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-
+        
         <style>
-
-            h1 { 
-                text-align: center; 
-                font-family: sans-serif;
-            }
-            .parent-container {
-            
-                padding: 2px;
-            }
-            .child-container {
-                width: 50%;
-                float: left;
-                padding: 50px;
-                color: #201900;
-                font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-                font-size: 20px;
-    
-                
-            }
-            .label {
-                border: 0px solid rgba(255, 171, 157, 0.5);
-                padding: 10px;
-            }
-            .header{
-                padding-top: 50px;
-                padding-bottom: 30px;
-                background-color: rgba(255, 171, 157, 0.5);
-                color: #201900;
-                
-            }
-
-            #webcam-container {
-            
-                padding: 20px;
-                padding-left: 10px;
-            }
-            #label-container {
-                border: 2px solid rgba(255, 171, 157, 0.5);
-                padding: 20px;
-                color: #201900;
-                font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-                font-size: 15px;
+           @media only screen and (max-width: 360px) {
+                #main {
+                   
+                    align-items: center;
+                    padding: 5%;
+                    width: 100%;
+                }
+                 
+                #webcam-container {
+                   
+                    align-items: center;
+                }
+                #label-container {
+                    padding: 30px;
+                    position: relative;
+                    
+             
+                }
+                #ele{
+                    display: inline-flex;
+                    float:left;
+                }
+                #cam {
+                    align-self: center;
+                    margin: 3%;
+                }
             
             }
+        
+           
+           
 
         </style>
     </head>
-    <body style="background-image:linear-gradient(to left,#dfbd91, #f7f7f7);">
-        <div class="header">
-            <h1> Vaani Test Model</h1>
+    <body style="background-image:linear-gradient;">
+        <div id="main">
+            <div id="webcam-container"></div>
+            <div id="label-container"></div>
         </div>
     
-    <div class="parent-container">
-        <div class="child-container"> 
-            <p>Input</p>   
-            <div id="webcam-container"></div>
-        </div>
-        <div class="child-container">
-            <p>Labels</p>
-            <div class="label">
-                <div id="label-container"></div>
-            </div>
-        </div>
-    </div>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
     <script src="test.js"></script>
     <script type="text/javascript">
@@ -98,16 +74,20 @@
     
             // Convenience function to setup a webcam
             const flip = true; // whether to flip the webcam
-            webcam = new tmImage.Webcam(500, 500, flip); // width, height, flip
+            webcam = new tmImage.Webcam(300, 300, flip); // width, height, flip
             await webcam.setup(); // request access to the webcam
             await webcam.play();
             window.requestAnimationFrame(loop);
     
             // append elements to the DOM
-            document.getElementById("webcam-container").appendChild(webcam.canvas);
+            w = webcam.canvas;
+            w.setAttribute("id", "cam");
+            document.getElementById("webcam-container").appendChild(w);
             labelContainer = document.getElementById("label-container");
             for (let i = 0; i < maxPredictions; i++) { // and class labels
-                labelContainer.appendChild(document.createElement("div"));
+                d = document.createElement("div");
+                d.setAttribute("id", "ele");
+                labelContainer.appendChild(d);
             }
         }
     
@@ -123,9 +103,12 @@
             const prediction = await model.predict(webcam.canvas);
     
             for (let i = 0; i < maxPredictions; i++) {
+            
                 const classPrediction =
-                    prediction[i].className + ":      " + prediction[i].probability.toFixed(1) * 100 + "  %";
+                    prediction[i].className; //+ ":      " + prediction[i].probability.toFixed(1) * 100 + "  %";
+             
                 labelContainer.childNodes[i].innerHTML = classPrediction;
+                
             }
             
         }

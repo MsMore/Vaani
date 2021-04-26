@@ -20,7 +20,7 @@
 
     <color name="navigationColor">#000000</color>
 
-    <string name="providerAuthority" translatable="false">xyz.appmaker.zbnkcm.fileprovider</string>
+    <string name="providerAuthority" translatable="false">xyz.appmaker.xnnleb.fileprovider</string>
 
     <integer name="splashScreenFadeOutDuration">300</integer>
 

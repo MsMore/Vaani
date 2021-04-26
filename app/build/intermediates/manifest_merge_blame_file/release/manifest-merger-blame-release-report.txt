@@ -22,7 +22,7 @@
 22     the abbreviated format.
 23-->
 24<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-25    package="xyz.appmaker.zbnkcm"
+25    package="xyz.appmaker.xnnleb"
 26    android:versionCode="1"
 27    android:versionName="1" >
 28

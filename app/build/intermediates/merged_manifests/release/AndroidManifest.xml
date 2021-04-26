@@ -22,7 +22,7 @@
      the abbreviated format.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="xyz.appmaker.zbnkcm"
+    package="xyz.appmaker.xnnleb"
     android:versionCode="1"
     android:versionName="1" >
 

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "applicationId": "xyz.appmaker.zbnkcm",
+  "applicationId": "xyz.appmaker.xnnleb",
   "variantType": "BASE_APK",
   "elements": [
     {
@@ -19,7 +19,7 @@
       },
       "path": "AndroidManifest.xml",
       "properties": {
-        "packageId": "xyz.appmaker.zbnkcm",
+        "packageId": "xyz.appmaker.xnnleb",
         "split": "",
         "minSdkVersion": "19"
       }
