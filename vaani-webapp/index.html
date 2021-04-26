@@ -105,7 +105,7 @@
             for (let i = 0; i < maxPredictions; i++) {
             
                 const classPrediction =
-                    prediction[i].className; //+ ":      " + prediction[i].probability.toFixed(1) * 100 + "  %";
+                    prediction[i].className + ":      " + prediction[i].probability.toFixed(1) * 100 + "  %";
              
                 labelContainer.childNodes[i].innerHTML = classPrediction;
                 
