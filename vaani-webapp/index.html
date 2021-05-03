@@ -11,26 +11,100 @@
         <link rel="stylesheet" href="src/master.css">
         <link rel="manifest" href="manifest.json">
         <link rel="apple-touch-icon" href="images/logo.PNG">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Holtwood One SC">
         
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
         
         <style>
-           @media only screen and (max-width: 360px) {
+           
+            @media only screen and (max-width: 2000px) {
+                #main {
+                   
+                   align-items: center;
+                   padding: 5%;
+                   width: 100%;
+                   height: 100%;
+                  
+               }
+                
+               #webcam-container {
+                   margin-top: 5%;
+                   align-items: center;
+               }
+               #label-container {
+                   padding: 30px;
+                   position: relative;
+                   font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif ;
+                   font-weight: 700;
+                   color: #fea82f;
+                   text-align: center;
+            
+               }
+                #ele{
+                    display: inline-flex;
+                    float:left;
+                }
+                #cam {
+                    align-self: center;
+                    margin: 3%;
+            
+                    border-radius: 30%;
+                    box-shadow: 3px 6px #fea82f;
+                    
+                    
+                    
+                }
+                .topbox {
+                    text-align: center;
+                    padding: 5%;
+                    width: 100%;
+                    box-shadow:3px 3px black;
+                    animation: MoveUpDown 1s linear infinite;
+                    margin-top: 5%;
+                    font-family:Holtwood One SC;
+                    font-size: 20px;
+                    letter-spacing: 2px;
+                    font-weight: 50;
+                    color: black;
+                    background-color: #fea82f;
+                   
+                  
+                
+                }
+                @keyframes MoveUpDown {
+                    0%, 100% {
+                        transform: translateY(0);
+                   
+                    }
+                    50% {
+                        transform: translateY(-8px);
+                        font-size: 21px;
+                       
+                    }
+                }
+            
+            }
+            @media only screen and (max-width: 640px) {
                 #main {
                    
                     align-items: center;
                     padding: 5%;
                     width: 100%;
+                    height: 100%;
+                   
                 }
                  
                 #webcam-container {
-                   
+                    margin-top: 5%;
                     align-items: center;
                 }
                 #label-container {
                     padding: 30px;
                     position: relative;
-                    
+                    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif ;
+                    font-weight: 700;
+                    color: #fea82f;
+                    text-align: center;
              
                 }
                 #ele{
@@ -41,44 +115,78 @@
                     align-self: center;
                     margin: 3%;
                 }
-            
+                .topbox {
+                    text-align: center;
+                    padding: 5%;
+                    width: 100%;
+                    box-shadow:3px 3px black;
+                    animation: MoveUpDown 1s linear infinite;
+                    margin-top: 5%;
+                    font-family:Holtwood One SC;
+                    font-size: 20px;
+                    letter-spacing: 2px;
+                    font-weight: 50;
+                    color: black;
+                    background-color: #fea82f;
+                   
+                  
+                
+                }
+                @keyframes MoveUpDown {
+                    0%, 100% {
+                        transform: translateY(0);
+                   
+                    }
+                    50% {
+                        transform: translateY(-8px);
+                        font-size: 21px;
+                       
+                    }
+                }
+
             }
-        
-           
+                 
            
 
         </style>
     </head>
-    <body style="background-image:linear-gradient;">
+    <body style="background-color:rgb(12, 11, 2);">
+        <div class="topbox">
+            Show your Signs
+        </div>
         <div id="main">
             <div id="webcam-container"></div>
             <div id="label-container"></div>
         </div>
+       
     
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
     <script src="test.js"></script>
     <script type="text/javascript">
     
     
-    
-        let model, webcam, labelContainer, maxPredictions;
-    
+    let model, webcam, labelContainer, maxPredictions;
+        var consecutive = 0;
+        var initial;
+        var result = "" ;
+        var output = "";
         // Load the image model and setup the webcam
         async function init() {
             const modelURL = "https://storage.googleapis.com/tm-model/ks5jGy7Cp/model.json";
             const metadataURL = "https://storage.googleapis.com/tm-model/ks5jGy7Cp/metadata.json";
-    
-    
+            
+            //var prev_pred = "";
+            
             model = await tmImage.load(modelURL, metadataURL);
             maxPredictions = model.getTotalClasses();
-    
+            
             // Convenience function to setup a webcam
             const flip = true; // whether to flip the webcam
             webcam = new tmImage.Webcam(300, 300, flip); // width, height, flip
             await webcam.setup(); // request access to the webcam
             await webcam.play();
             window.requestAnimationFrame(loop);
-    
+            
             // append elements to the DOM
             w = webcam.canvas;
             w.setAttribute("id", "cam");
@@ -90,30 +198,80 @@
                 labelContainer.appendChild(d);
             }
         }
-    
+        
         async function loop() {
             webcam.update(); // update the webcam frame
-            await predict();
+            var prediction = await predict();
+            display_prediction(prediction)
+            //window.prev_pred = "";
             window.requestAnimationFrame(loop);
         }
-    
+        
         // run the webcam image through the image model
         async function predict() {
             // predict can take in an image, video or canvas html element
             const prediction = await model.predict(webcam.canvas);
-    
+            max_prob_word = ""
+            max_prob = 0
             for (let i = 0; i < maxPredictions; i++) {
+                if (prediction[i].probability >= max_prob){
+                    max_prob = prediction[i].probability;
+                    max_prob_word = prediction[i].className;
+                }
+            }
+            const classPrediction = max_prob_word;
+          
+            return classPrediction
+        }
+        function display_prediction(classPrediction){
+          /*   if (labelContainer.childElementCount == 0){
+                var prev_pred = classPrediction;
+                //var consecutive = 0;
+            }*/
+            max_prob_word = classPrediction;
+            //var prev_pred = classPrediction;
+            if (initial == 0){
+                result = result.concat(classPrediction);
+                initial += 1;
+                output = output.concat(classPrediction);
+            } 
             
-                const classPrediction =
-                    prediction[i].className + ":      " + prediction[i].probability.toFixed(1) * 100 + "  %";
-             
-                labelContainer.childNodes[i].innerHTML = classPrediction;
+            if (max_prob_word == output.charAt(output.length - 1)) {
+                consecutive += 1;
+                
+               
+                //console.log(result.length)
+            }
+            else{
+                consecutive = 0;
+            }
+            output = output.concat(classPrediction);
+            if (consecutive  == 20  ){
+                if (max_prob_word == "Delete"){
+                    strlen = result.length;
+                    result = result.split(0, -1);
+                    //result.charAt(strlen - 1) = "";
+                }
+                else if (max_prob_word == "Space"){
+                    result = result.concat("_");
+                }
+                else if (max_prob_word == "Nothing"){
+                    result = result;
+                }
+                else{
+                    result = result.concat(classPrediction);
+                }
+                //var prev_pred = ""
+                prev_pred = classPrediction;
+                consecutive = 0;
+/*                 labelContainer.removeChild(labelContainer.firstChild);
+                var predicted_alphabet = document.createTextNode(result);
+                labelContainer.appendChild(predicted_alphabet) */
+                document.getElementById("label-container").innerHTML = result;
                 
             }
-            
         }
         window.onload = init()
-        
     </script>
         <script src="src/index.js"></script>
     </body>
