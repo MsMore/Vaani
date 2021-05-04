@@ -105,6 +105,7 @@
                     font-weight: 700;
                     color: #fea82f;
                     text-align: center;
+                    
              
                 }
                 #ele{
@@ -164,7 +165,6 @@
     <script src="test.js"></script>
     <script type="text/javascript">
     
-    
     let model, webcam, labelContainer, maxPredictions;
         var consecutive = 0;
         var initial;
@@ -172,8 +172,8 @@
         var output = "";
         // Load the image model and setup the webcam
         async function init() {
-            const modelURL = "https://storage.googleapis.com/tm-model/ks5jGy7Cp/model.json";
-            const metadataURL = "https://storage.googleapis.com/tm-model/ks5jGy7Cp/metadata.json";
+            const modelURL = "https://vaanimodel.s3.jp-tok.cloud-object-storage.appdomain.cloud/model.json";
+            const metadataURL = "https://vaanimodel.s3.jp-tok.cloud-object-storage.appdomain.cloud/metadata%20(2)%20.json";
             
             //var prev_pred = "";
             
@@ -220,40 +220,15 @@
                 }
             }
             const classPrediction = max_prob_word;
-          
+            console.log(classPrediction)
             return classPrediction
         }
         function display_prediction(classPrediction){
-          /*   if (labelContainer.childElementCount == 0){
-                var prev_pred = classPrediction;
-                //var consecutive = 0;
-            }*/
             max_prob_word = classPrediction;
-            //var prev_pred = classPrediction;
             if (initial == 0){
-                result = result.concat(classPrediction);
-                initial += 1;
-                output = output.concat(classPrediction);
-            } 
-            
-            if (max_prob_word == output.charAt(output.length - 1)) {
-                consecutive += 1;
-                
-               
-                //console.log(result.length)
-            }
-            else{
-                consecutive = 0;
-            }
-            output = output.concat(classPrediction);
-            if (consecutive  == 20  ){
                 if (max_prob_word == "Delete"){
                     strlen = result.length;
-                    result = result.split(0, -1);
-                    //result.charAt(strlen - 1) = "";
-                }
-                else if (max_prob_word == "Space"){
-                    result = result.concat("_");
+                    result = result.substring(0, result.length - 1);
                 }
                 else if (max_prob_word == "Nothing"){
                     result = result;
@@ -261,14 +236,31 @@
                 else{
                     result = result.concat(classPrediction);
                 }
-                //var prev_pred = ""
-                prev_pred = classPrediction;
+                initial += 1;
+                output = output.concat(classPrediction);
+            } 
+            
+            if (max_prob_word == output.charAt(output.length - 1)) {
+                consecutive += 1;
+            }
+            else{
                 consecutive = 0;
-/*                 labelContainer.removeChild(labelContainer.firstChild);
-                var predicted_alphabet = document.createTextNode(result);
-                labelContainer.appendChild(predicted_alphabet) */
+            }
+            output = output.concat(classPrediction);
+            if (consecutive  == 50){
+                if (classPrediction == "?"){
+                    result = result.substring(0, result.length - 1);
+                    console.log(result)
+                }
+                else if (max_prob_word == "Nothing"){
+                    result = result;
+                }
+                else{
+                    result = result.concat(classPrediction);
+                }
+                consecutive = 0;
                 document.getElementById("label-container").innerHTML = result;
-                
+                console.log(result)
             }
         }
         window.onload = init()
