@@ -12,9 +12,7 @@ we have implemented it using: <br>
 3. PWA
 
 ## Machine Learning Model that we have implemeted - 
-
 ![](vgg16.PNG)
-
 In VGG16 there are 5 blocks of Convo-pool layers, we removed the last layers up to fully connected layers and then added our custom dense layer which had 28 output classes.
 We trained our fine-tuned VGG 16 model on raw image data
 
