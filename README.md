@@ -12,8 +12,6 @@ we have implemented it using: <br>
 3. PWA
 
 ## Machine Learning Model that we have implemeted - 
-<br>
-<br>
 
 ![](vgg16.PNG)
 
